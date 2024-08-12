@@ -1,0 +1,124 @@
+﻿@model JobPortal.Models.Jobs
+
+@{
+    ViewData["Title"] = "DetailJob";
+    Layout = "~/Areas/Admin/Views/Shared/lay.cshtml";
+}
+
+<h1 class="mb-4">Job Details</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Job Information</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.NoOfPost)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.NoOfPost)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Qualification)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Qualification)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Experience)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Experience)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Specialization)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Specialization)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Skill)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Skill)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.LastDateToApply)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.LastDateToApply)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Salary)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.JobType)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.JobType)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CompanyImage)
+            </dt>
+            <dd class="col-sm-9">
+                <img src="~/Imagejob/@Model.CompanyImage" alt="Company Image" class="img-fluid rounded" />
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.State)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.State)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Employers.CompanyName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Employers.CompanyName)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Country.CountryName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Country.CountryName)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.JobCaterogies.JobCaterogyName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.JobCaterogies.JobCaterogyName)
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a asp-action="EditJob" asp-route-id="@Model.JobId" class="btn btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

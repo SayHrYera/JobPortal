@@ -1,0 +1,93 @@
+﻿@model IEnumerable<JobPortal.Models.Jobs>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/lay.cshtml";
+}
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<h1>Index</h1>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title fw-semibold mb-4">Jobs List</h5>
+
+            <div class="mb-3">
+                <div class="searchbar">
+                    <input class="search_input form-control" type="text" name="search" placeholder="Search...">
+                    <a href="#" class="search_icon"><i class="ti ti-search"></i></a>
+                    <a asp-action="CreateJob" class="btn btn-success add_button position-absolute">Add</a>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="styled-table table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.First().CompanyImage)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().NoOfPost)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Experience)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Specialization)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().JobType)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().City)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Employers.CompanyName)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Country.CountryName)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().JobCaterogies.JobCaterogyName)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().State)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content("~/Imagejob/" + item.CompanyImage)" alt="Company Image" style="width:100px; height:auto;" />
+                                </td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.NoOfPost)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.Experience)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.Specialization)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.JobType)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.City)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.Employers.CompanyName)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.Country.CountryName)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.JobCaterogies.JobCaterogyName)</td>
+                                <td class="vertical-align">@Html.DisplayFor(modelItem => item.State)</td>
+                                <td class="vertical-align">
+                                    <div class="d-flex align-items-center">
+                                        <a class="me-2" asp-action="EditJob" asp-route-id="@item.JobId">Edit</a>
+                                        <span class="me-2">|</span>
+                                        <a class="me-2" asp-action="DetailJob" asp-route-id="@item.JobId">Details</a>
+                                        <span class="me-2">|</span>
+                                        <form asp-action="DeleteConfirmed" asp-route-id="@item.JobId" method="post" onsubmit="return confirm('Bạn xác nhận muốn xóa?');" class="mb-0">
+                                            <button type="submit" class="btn btn-link p-0" style="text-decoration: none;">
+                                                Xóa
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .vertical-align {
+        vertical-align: middle;
+    }
+</style>

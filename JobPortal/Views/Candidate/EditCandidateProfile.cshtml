@@ -1,0 +1,130 @@
+﻿@model JobPortal.Models.Candidates
+@{
+    ViewData["Title"] = "Candidate Profile Edit";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Candidate Profile</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pt-5 pb-5">
+    <button class="btn btn-primary mb-3">
+        <a asp-controller="Candidate" asp-action="CandidateProfile">Quay lại</a>
+    </button>
+    <div class="main-body">
+        <form asp-action="UpdateCandidateProfile" method="post" enctype="multipart/form-data">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img id="profileImagePreview" src="@Url.Content(Model.Resume ?? "/ImageUser/placeholder.png")" alt="Profile Image" class="rounded-circle" width="150">
+                                <div class="mt-3">
+                                    <input id="profileImageInput" type="file" class="form-control" name="imgFile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="FullName" class="col-sm-3 col-form-label">Full Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="FullName" name="FullName" value="@Model.FullName" placeholder="Enter your full name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="Enter your Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PhoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="Enter your Phone Number">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Address" class="col-sm-3 col-form-label">Address</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Address" name="Address" value="@Model.Address" placeholder="Enter your Address">
+                                </div>
+                            </div>
+@*                             <!-- Uncomment and update if needed for country dropdown -->
+                            <!-- <div class="form-group row">
+                                <label for="CountryId" class="col-sm-3 col-form-label">Country</label>
+                                <div class="col-sm-9">
+                            @Html.DropDownList("CountryId", ViewBag.Country as SelectList, "-- Select Country --", new { @class = "form-control", required = "required" })
+                                </div>
+                            </div> --> *@
+                            <div class="form-group row">
+                                <label for="TenthGrade" class="col-sm-3 col-form-label">TenthGrade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="TenthGrade" name="TenthGrade" value="@Model.TenthGrade" placeholder="Ex: 90%">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="TwelfthGrade" class="col-sm-3 col-form-label">TwelfthGrade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="TwelfthGrade" name="TwelfthGrade" value="@Model.TwelfthGrade" placeholder="Ex: 90%">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="GraduationGrade" class="col-sm-3 col-form-label">GraduationGrade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="GraduationGrade" name="GraduationGrade" value="@Model.GraduationGrade" placeholder="Ex: BTech with 9.0 pointer">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Phd" class="col-sm-3 col-form-label">Phd</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Phd" name="Phd" value="@Model.Phd" placeholder="PHD with Grade">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Experience" class="col-sm-3 col-form-label">Experience</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Experience" name="Experience" value="@Model.Experience" placeholder="Work Experience">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('profileImageInput');
+        var preview = document.getElementById('profileImagePreview');
+
+        input.addEventListener('change', function (event) {
+            var file = event.target.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

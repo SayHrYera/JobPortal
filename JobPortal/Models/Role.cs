@@ -1,0 +1,14 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JobPortal.Models
+{
+    public class Role
+    {
+        [Key]
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string? RoleDesc { get; set; }
+
+        public virtual ICollection<User>? Users { get; set; }
+    }
+}

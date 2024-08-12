@@ -1,0 +1,223 @@
+﻿@model JobPortal.Models.JobListViewModel;
+
+@{
+    ViewData["Title"] = "BrowseJob";
+}
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@ViewData["Count"] công việc</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg">
+                        <h3>Filter</h3>
+                        <form method="get" action="@Url.Action("Index", "Job")" class="search-form">
+                            <div class="row">
+                                <!-- Search Keyword -->
+                                <div class="col-lg-12 mb-3">
+                                    <div class="form-group">
+                                        <input type="text" name="keyword" class="form-control" placeholder="Từ khóa tìm kiếm">
+                                    </div>
+                                </div>
+
+                                <!-- Job Category -->
+                                <div class="col-lg-12 mb-3">
+                                    <div class="form-group">
+                                        <select name="category" class="form-control custom-select">
+                                            <option value="">Chuyên ngành</option>
+                                            @foreach (var category in ViewBag.Categories)
+                                            {
+                                                <option value="@category.Value">@category.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Experience -->
+                                <div class="col-lg-12 mb-3">
+                                    <div class="form-group">
+                                        <select name="experience" class="form-control custom-select">
+                                            <option value="">Kinh nghiệm</option>
+                                            <option value="1 năm">1 năm</option>
+                                            <option value="2 năm">2 năm</option>
+                                            <option value="3 năm">3 năm</option>
+                                            <option value="4 năm">4 năm</option>
+                                            <option value="5 năm">5 năm</option>
+                                            <option value="6 năm">6 năm</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Job Type -->
+                                <div class="col-lg-12 mb-3">
+                                    <div class="form-group">
+                                        <select name="jobType" class="form-control custom-select">
+                                            <option value="">Loại công việc</option>
+                                            <option value="Full Time">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                            <option value="Remote">Remote</option>
+                                            <option value="Freelance">Freelance</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="col-lg-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Lọc công việc</button>
+                                    <a href="@Url.Action("Index", "Job")" class="btn btn-secondary btn-lg btn-block mt-2">Reset</a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>Job Listing</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job_lists m-0">
+                    <div class="row">
+                        @foreach (var job in Model.Jobs)
+                        {
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div>
+                                            <img src="@Url.Content("~/Imagejob/" + job.CompanyImage)" alt="Company Image" style="width:100px; height:auto; padding-right:20px" />
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a asp-controller="Panel" asp-action="DetailJob" asp-route-id="@job.JobId"><h4>@job.Title</h4></a>
+                                            <!-- Tên công ty -->
+                                            <p>@job.Employers?.CompanyName</p>
+
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i> @job.Country?.CountryName, @job.City</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i> @job.JobType</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                                            <a asp-controller="Panel" asp-action="DetailJob" asp-route-id="@job.JobId" class="boxed-btn3">Apply Now</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Hạn chót: @job.LastDateToApply.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                        <div>
+                                            <p class="job-state @GetJobStateClass(job.State)">
+                                                @job.State
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pagination_wrap">
+                                <ul>
+                                    @if (Model.CurrentPage > 1)
+                                    {
+                                        <li><a href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })"> <i class="ti-angle-left"></i> </a></li>
+                                    }
+
+                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    {
+                                        if (i == Model.CurrentPage)
+                                        {
+                                            <li><a href="@Url.Action("Index", new { page = i })" class="active"><span>@i</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("Index", new { page = i })">@i</a></li>
+                                        }
+                                    }
+
+                                    @if (Model.CurrentPage < Model.TotalPages)
+                                    {
+                                        <li><a href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })"> <i class="ti-angle-right"></i> </a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_listing_area_end  -->
+<style>
+    .pagination_wrap ul li a.active {
+        color: white;
+        background-color: #007bff;
+        border-radius: 50%;
+    }
+
+    .job-state {
+        padding: 0px 2px 0px 85px; /* Điều chỉnh khoảng cách để văn bản không bị sát mép */
+        border-radius: 3px; /* Bo góc nhẹ để văn bản trông mềm mại hơn */
+        font-weight: bold;
+        text-align: center;
+        display: inline-block;
+    }
+
+    /* Màu chữ cho từng trạng thái */
+    .state-new {
+        padding: 0px 0px 0px 100px;
+        color: #28a745; /* Xanh lá cho "Mới" */
+    }
+
+    .state-open {
+        color: #007bff; /* Xanh dương cho "Đang mở" */
+    }
+
+    .state-closed {
+        color: #dc3545; /* Đỏ cho "Đã đóng" */
+    }
+
+    .state-cancelled {
+        color: #6c757d; /* Xám cho "Đã hủy" */
+    }
+</style>
+@functions {
+    public string GetJobStateClass(string state)
+    {
+        return state switch
+        {
+            "Mới" => "state-new",
+            "Đang mở" => "state-open",
+            "Đã đóng" => "state-closed",
+            "Đã hủy" => "state-cancelled",
+            _ => ""
+        };
+    }
+}

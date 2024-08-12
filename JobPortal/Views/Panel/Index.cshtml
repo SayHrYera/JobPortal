@@ -1,0 +1,304 @@
+﻿@model JobPortal.Models.JobListViewModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="slider_area">
+    <div class="single_slider d-flex align-items-center slider_bg_1">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-6">
+                    <div class="slider_text">
+                        <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ Jobs listed</h5>
+                        <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Find your Dream Job</h3>
+                        <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">We provide online instant cash loans with quick approval that suit your term length</p>
+                        <div class="slider_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                            <a href="#" class="boxed-btn3">Upload your Resume</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ilstration_img wow fadeInRight d-none d-lg-block text-right" data-wow-duration="1s" data-wow-delay=".2s">
+        <img src="img/banner/illustration.png" alt="">
+    </div>
+</div>
+
+<div class="popular_category_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title mb-40 text-center">
+                    <h3>Popular Categories</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var jobcategory in Model.JobCategories)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="single_category">
+                        <a href="@Url.Action("Index", "Job", new { category = jobcategory.JobCaterogyName })">
+                            <div class="category_icon">
+                                <!-- Example Icon, replace with actual category image or icon -->
+                                <i class="fa fa-briefcase fa-3x"></i>
+                            </div>
+                            <h4>@jobcategory.JobCaterogyName</h4>
+                        </a>
+                        <p><span>@jobcategory.JobCount</span> Available positions</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- popular_catagory_area_end  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_title">
+                    <h3>Job Listing</h3>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="brouse_job text-right">
+                    <a asp-controller="Job" asp-action="Index" class="boxed-btn4">Browse More Job</a>
+                </div>
+            </div>
+        </div>
+        <div class="job_lists">
+            <div class="row">
+                @foreach (var job in Model.Jobs)
+                {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div>
+                                    <img src="@Url.Content("~/Imagejob/" + job.CompanyImage)" alt="Company Image" style="width:100px; height:auto; padding-right:20px" />
+                                </div>
+                                <div class="jobs_conetent">
+                                    <a asp-action="DetailJob" asp-route-id="@job.JobId"><h4>@job.Title</h4></a>
+                                    <!-- Tên công ty -->
+                                    <p>@job.Employers?.CompanyName</p>
+
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-map-marker"></i> @job.Country?.CountryName, @job.City</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> @job.JobType</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                                    <a asp-action="DetailJob" asp-route-id="@job.JobId" class="boxed-btn3">Apply Now</a>
+                                </div>
+                                <div>
+                                    <p>Hạn chót: @job.LastDateToApply.ToString("dd/MM/yyyy")</p>
+                                    <p class="job-state @GetJobStateClass(job.State)">
+                                        @job.State
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_listing_area_end  -->
+<!-- job_searcing_wrap  -->
+<div class="job_searcing_wrap overlay">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-6">
+                <div class="searching_text">
+                    <h3>Looking for a Job?</h3>
+                    <p>We provide online instant cash loans with quick approval </p>
+                    <a href="#" class="boxed-btn3">Browse Job</a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 col-md-6">
+                <div class="searching_text">
+                    <h3>Looking for a Expert?</h3>
+                    <p>We provide online instant cash loans with quick approval </p>
+                    <a href="#" class="boxed-btn3">Post a Job</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_searcing_wrap end  -->
+<!-- testimonial_area  -->
+<div class="testimonial_area  ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-40">
+                    <h3>Testimonial</h3>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="testmonial_active owl-carousel">
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class="Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class=" Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single_carousel">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="img/testmonial/author.png" alt="">
+                                        <div class="quote_icon">
+                                            <i class="Flaticon flaticon-quote"></i>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
+                                        <span>- Micky Mouse</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .popular_category_area {
+        background-color: #f9f9f9;
+        padding: 50px 0;
+    }
+
+    .section_title {
+        margin-bottom: 30px;
+    }
+
+        .section_title h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+    .single_category {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .single_category:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+    .category_icon {
+        margin-bottom: 15px;
+        color: #007bff; /* Primary color or adjust as needed */
+    }
+
+        .category_icon i {
+            font-size: 3rem;
+        }
+
+    .single_category h4 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .single_category p {
+        font-size: 1rem;
+        color: #666;
+    }
+
+        .single_category p span {
+            font-weight: bold;
+            color: #007bff; /* Primary color or adjust as needed */
+        }
+
+    .job-state {
+        padding: 0px 0px 0px 85px; /* Điều chỉnh khoảng cách để văn bản không bị sát mép */
+        border-radius: 3px; /* Bo góc nhẹ để văn bản trông mềm mại hơn */
+        font-weight: bold;
+        text-align: center;
+        display: inline-block;
+    }
+
+    /* Màu chữ cho từng trạng thái */
+    .state-new {
+        padding: 0px 0px 0px 100px;
+        color: #28a745; /* Xanh lá cho "Mới" */
+    }
+
+    .state-open {
+        color: #007bff; /* Xanh dương cho "Đang mở" */
+    }
+
+    .state-closed {
+        color: #dc3545; /* Đỏ cho "Đã đóng" */
+    }
+
+    .state-cancelled {
+        color: #6c757d; /* Xám cho "Đã hủy" */
+    }
+</style>
+@functions {
+    public string GetJobStateClass(string state)
+    {
+        return state switch
+        {
+            "Mới" => "state-new",
+            "Đang mở" => "state-open",
+            "Đã đóng" => "state-closed",
+            "Đã hủy" => "state-cancelled",
+            _ => ""
+        };
+    }
+}

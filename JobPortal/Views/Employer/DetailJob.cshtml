@@ -1,0 +1,213 @@
+﻿@model JobPortal.Models.Jobs
+
+@{
+    ViewData["Title"] = "DetailJob";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@Model.Title</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- Tab Navigation -->
+<div class="job_details_area">
+    <div class="container mb-4">
+        <a href="@Url.Action("Workmanagement", "Employer")" class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Quay lại danh sách công việc
+        </a>
+    </div>
+    <div class="container">
+        <ul class="nav nav-tabs" id="jobTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="job-info-tab" data-toggle="tab" href="#job-info" role="tab" aria-controls="job-info" aria-selected="true">Thông tin công việc</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="applied-list-tab" data-toggle="tab" href="#applied-list" role="tab" aria-controls="applied-list" aria-selected="false">Danh sách ứng tuyển</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="jobTabContent">
+            <!-- Job Information Tab -->
+            <div class="tab-pane fade show active" id="job-info" role="tabpanel" aria-labelledby="job-info-tab">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="job_details_header">
+                            <div class="single_jobs white-bg d-flex justify-content-between">
+                                <div class="jobs_left d-flex align-items-center">
+                                    <div>
+                                        <img src="@Url.Content("~/Imagejob/" + Model.CompanyImage)" alt="Company Image" style="width:100px; height:auto; padding-right:20px" />
+                                    </div>
+                                    <div class="jobs_conetent">
+                                        <a href="#"><h4>@Model.Title</h4></a>
+                                        <div class="links_locat d-flex align-items-center">
+                                            <div class="location">
+                                                <p> <i class="fa fa-map-marker"></i>@Model.Country?.CountryName</p>
+                                            </div>
+                                            <div class="location">
+                                                <p> <i class="fa fa-clock-o"></i> @Model.JobType</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="descript_wrap white-bg">
+                            <div class="single_wrap">
+                                <h4>Thông tin công việc</h4>
+                                <p>@Model.Description</p>
+                            </div>
+                            <div class="single_wrap">
+                                <h4>Bằng cấp - Kinh Nghiệm</h4>
+                                <ul>
+                                    <li>
+                                        @Model.Qualification
+                                    </li>
+                                    <li>
+                                        @Model.Experience kinh nghiệm
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="single_wrap">
+                                <h4>Yêu cầu công việc</h4>
+                                <ul>
+                                    <li>
+                                        @Model.Skill
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="job_sumary">
+                            <div class="summery_header">
+                                <h3>Tóm tắt công việc</h3>
+                            </div>
+                            <div class="job_content">
+                                <ul>
+                                    <li>Ngày đăng <span>@Model.CreateDate</span></li>
+                                    <li>Hạn chót <span>@Model.LastDateToApply</span></li>
+                                    <li>Số lượng <span>@Model.NoOfPost</span></li>
+                                    <li>Mức lương <span>@Model.Salary</span></li>
+                                    <li>Địa chỉ <span>@Model.Country?.CountryName, @Model.City</span></li>
+                                    <li>Loại công việc <span> @Model.JobType</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applied List Tab -->
+            <div class="tab-pane fade" id="applied-list" role="tabpanel" aria-labelledby="applied-list-tab">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="applied_list p-4 shadow-lg rounded bg-light">
+                            <h4 class="mb-4 text-primary font-weight-bold">Danh sách ứng tuyển</h4>
+                            <table class="table table-hover table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tên ứng viên</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Portfolio</th>
+                                        <th scope="col">Ngày ứng tuyển</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var application in Model.ApplyJobs)
+                                    {
+                                        <tr>
+                                            <td>@application.AppliedJobId</td>
+                                            <td>@application.YourName</td>
+                                            <td>@application.Email</td>
+                                            <td>
+                                                <a href="@application.Portfolios" class="btn btn-sm btn-outline-primary" target="_blank">
+                                                    <i class="fa fa-external-link"></i> Xem
+                                                </a>
+                                            </td>
+                                            <td>@application.ApplicationDate</td>
+                                            <td>
+                                            <!-- Hiển thị trạng thái -->
+                                                <span class="badge 
+                                                @(application.Status == "Đang chờ" ? "badge-warning" : 
+                                                  application.Status == "Đã loại" ? "badge-danger" : 
+                                                "badge-success")">
+                                                @application.Status
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("DetailApplyJob", "Employer", new { id = application.AppliedJobId })" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-eye"></i> Xem chi tiết
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .applied_list {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+        cursor: pointer;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        border-bottom: 2px solid #343a40;
+    }
+
+    thead.thead-dark th {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .btn-outline-primary {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+</style>
+
+
+
+<script>
+    // Update label text when file selected
+    document.getElementById('inputGroupFile03').addEventListener('change', function (event) {
+        var fileName = event.target.files[0] ? event.target.files[0].name : 'Tải CV';
+        var label = document.querySelector('.custom-file-label');
+        label.textContent = fileName;
+    });
+</script>

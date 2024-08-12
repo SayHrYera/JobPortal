@@ -1,0 +1,64 @@
+﻿@model JobPortal.Models.AppliedJobs
+
+@{
+    ViewData["Title"] = "Application Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <h2 class="mb-3">Chi tiết ứng tuyển</h2>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>@Model.Jobs.Title</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Công ty: @Model.Jobs.Employers.CompanyName</h5>
+                    <p><strong>Ngày nộp đơn:</strong> @Model.ApplicationDate</p>
+                    <p><strong>Trạng thái:</strong> @Model.Status</p>
+                    <hr />
+                    <h5 class="card-title">Thông tin công việc</h5>
+                    <p><strong>Loại công việc:</strong> @Model.Jobs.JobType</p>
+                    <p><strong>Mức lương:</strong> @Model.Jobs.Salary</p>
+                    <p><strong>Địa chỉ:</strong> @Model.Jobs.Country?.CountryName, @Model.Jobs.City</p>
+                    <p><strong>Kỹ năng yêu cầu:</strong> @Model.Jobs.Skill</p>
+                    <p><strong>Mô tả công việc:</strong> @Model.Jobs.Description</p>
+                </div>
+            </div>
+
+            <a href="@Url.Action("AppliedJobs", "Candidate")" class="btn btn-primary">Quay lại</a>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .card-body p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .card-body hr {
+        margin: 20px 0;
+    }
+</style>

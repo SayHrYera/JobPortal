@@ -1,0 +1,135 @@
+﻿@model JobPortal.Models.RegistrationEmployers;
+@{
+    ViewData["Title"] = "RegistrationEmployer";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>Welcome</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pt-50 pb-40">
+    <div class="row d-flex justify-content-center pt-5">
+        <div class="col-12">
+            <h1 class="contact-title text-center">Sign Up Employer</h1>
+        </div>
+        <div class="col-lg-6">
+            <form class="form-contact contact_form" asp-action="RegistrationEmployer" method="post" >
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Account Type</h4>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <a href="@Url.Action("RegistrationEmployer", "Account")" class="btn btn-primary btn-block">Register as Employer</a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <a href="@Url.Action("Registration", "Account")" class="btn btn-primary btn-block">Register as Candidate</a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-12">
+                        <h4>Login Information</h4>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input asp-for="Username" type="text" class="form-control" name="Username" placeholder="Username" required />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input asp-for="Password" type="password" id="password" class="form-control" name="Password" placeholder="Password" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input asp-for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password" required />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                                <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h4>Employer Information</h4>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input asp-for="CompanyName" class="form-control" name="CompanyName" type="text" placeholder="Company Name" required />
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Contact Name</label>
+                            <input asp-for="ContactName" class="form-control" name="ContactName" type="text" placeholder="Contact Name" required />
+                            <span asp-validation-for="ContactName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="Email" class="form-control" name="Email" type="email" placeholder="Email" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input asp-for="PhoneNumber" class="form-control" name="PhoneNumber" type="text" placeholder="Phone Number" required />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input asp-for="Address" class="form-control" name="Address" type="text" placeholder="Address" required />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3 text-center">
+                    <button type="submit" class="button button-contactForm btn_4 boxed-btn">Sign Up as Employer</button>
+                </div>
+                <div class="text-center mb-3">
+                    <span class="card-link">Already Registered? <a asp-action="Login">Click Here...</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var confirmPasswordInput = document.getElementById("confirmPassword");
+        var togglePasswordIcon = document.getElementById("togglePasswordIcon");
+        var isPassword = passwordInput.type === "password";
+
+        passwordInput.type = isPassword ? "text" : "password";
+        confirmPasswordInput.type = isPassword ? "text" : "password";
+        togglePasswordIcon.classList.toggle("fa-eye-slash", isPassword);
+        togglePasswordIcon.classList.toggle("fa-eye", !isPassword);
+    }
+</script>

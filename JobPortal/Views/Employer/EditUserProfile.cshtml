@@ -1,0 +1,66 @@
+﻿@model JobPortal.Models.User
+
+@{
+    ViewData["Title"] = "EditUserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Edit User Profile</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pt-5 pb-5">
+    <button class="btn btn-primary mb-3">
+        <a asp-controller="Employer" asp-action="EmployerProfile" class="text-white">Quay lại</a>
+    </button>
+    <div class="main-body">
+        <form asp-action="UpdateUserProfile" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row gutters-sm">
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="Username" class="col-sm-3 col-form-label">User Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="UserName" class="form-control" id="Username" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Password" class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Password" class="form-control" id="Password" type="password" value="@Model.Password" placeholder="Enter new password" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="NumberPhone" class="col-sm-3 col-form-label">Phone Number</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="NumberPhone" class="form-control" id="PhoneNumber" placeholder="Enter your Phone Number" required>
+                                    <span asp-validation-for="NumberPhone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Email" class="form-control" id="Email" placeholder="Enter your Email" required>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

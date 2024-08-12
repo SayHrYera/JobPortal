@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>Chào mừng</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<div class="container pt-50 pb-40">
+    <div class="row d-flex justify-content-center pt-5">
+        <div class="col-12">
+            <h1 class="contact-title text-center">Đăng nhập</h1>
+        </div>
+        <div class="col-lg-6">
+            <form class="form-contact contact_form" asp-controller="Account" asp-action="Login" method="post" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Tên đăng nhập</label>
+                            <input type="text" class="form-control" name="username" placeholder="User name" required />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="togglePassword()">
+                                        <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (TempData["status"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["status"]
+                    </div>
+                }
+                <div class="form-group mt-3 text-center">
+                    <button type="submit" class="button button-contactForm btn_4 boxed-btn">Đăng nhập</button>
+                </div>
+                <div class="text-center mb-3">
+                    <span class="card-link">Người dùng mới? <a asp-controller="Account" asp-action="Registration">Nhấn vào đây...</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var togglePasswordIcon = document.getElementById("togglePasswordIcon");
+        var isPassword = passwordInput.type === "password";
+
+        passwordInput.type = isPassword ? "text" : "password";
+        togglePasswordIcon.classList.toggle("fa-eye-slash", isPassword);
+        togglePasswordIcon.classList.toggle("fa-eye", !isPassword);
+    }
+</script>

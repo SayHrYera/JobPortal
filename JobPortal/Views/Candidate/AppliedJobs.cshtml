@@ -1,0 +1,96 @@
+﻿@model IEnumerable<JobPortal.Models.AppliedJobs>
+
+@{
+    ViewData["Title"] = "Công việc đã ứng tuyển";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>Danh sách công việc đã ứng tuyển</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData.ContainsKey("SuccessMessagee"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessagee"]
+    </div>
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="text-center mb-4">Danh sách công việc bạn đã ứng tuyển</h2>
+            <hr class="mb-4">
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Tên công việc</th>
+                                <th scope="col">Công ty</th>
+                                <th scope="col">Ngày ứng tuyển</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var job in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("DetailJob", "Job", new { id = job.JobId })" class="text-primary">
+                                            @job.Jobs.Title
+                                        </a>
+                                    </td>
+                                    <td>@job.Jobs.Employers?.CompanyName</td>
+                                    <td>@job.ApplicationDate</td>
+                                    <td>
+                                        @if (job.Status == "Đang chờ")
+                                        {
+                                            <span class="badge badge-warning">Đang xử lý</span>
+                                        }
+                                        else if (job.Status == "Đã đậu")
+                                        {
+                                            <span class="badge badge-success">Đã chấp nhận</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Đã từ chối</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ApplicationDetails", "Candidate", new { jobId = job.JobId })" class="btn btn-info">Chi tiết</a>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteApplication(@job.JobId)">Hủy ứng tuyển</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    Bạn chưa ứng tuyển công việc nào.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function deleteApplication(jobId) {
+            if (confirm('Bạn có chắc chắn muốn hủy ứng tuyển công việc này không?')) {
+                window.location.href = '@Url.Action("DeleteApplication", "Candidate")?jobId=' + jobId;
+            }
+        }
+    </script>
+}

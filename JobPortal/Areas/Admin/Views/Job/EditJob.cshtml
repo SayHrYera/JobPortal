@@ -1,0 +1,163 @@
+﻿@model JobPortal.Models.Jobs
+
+@{
+    ViewData["Title"] = "EditJob";
+    Layout = "~/Areas/Admin/Views/Shared/lay.cshtml";
+}
+
+<h1>Edit Job</h1>
+
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form asp-action="EditJob" enctype="multipart/form-data" method="post" id="jobPostForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="JobId" />
+
+                <!-- Job Category -->
+                <div class="form-group">
+                    <label asp-for="JobCategoryId" class="control-label">Job Category</label>
+                    @Html.DropDownList("JobCategoryId", ViewBag.Categories as SelectList, "-- Select Category --", new { @class = "form-control", required = "required" })
+                    <span asp-validation-for="JobCategoryId" class="text-danger"></span>
+                </div>
+
+                <!-- Employer -->
+                <div class="form-group">
+                    <label asp-for="EmployerId" class="control-label">Employer</label>
+                    @Html.DropDownList("EmployerId", ViewBag.Employers as SelectList, "-- Select Employer --", new { @class = "form-control", required = "required" })
+                    <span asp-validation-for="EmployerId" class="text-danger"></span>
+                </div>
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">Title</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <!-- No of Post -->
+                <div class="form-group">
+                    <label asp-for="NoOfPost" class="control-label">Number of Posts</label>
+                    <input asp-for="NoOfPost" class="form-control" />
+                    <span asp-validation-for="NoOfPost" class="text-danger"></span>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <!-- Qualification -->
+                <div class="form-group">
+                    <label asp-for="Qualification" class="control-label">Qualification</label>
+                    <input asp-for="Qualification" class="form-control" />
+                    <span asp-validation-for="Qualification" class="text-danger"></span>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-group">
+                    <label asp-for="Experience" class="control-label">Experience</label>
+                    <input asp-for="Experience" class="form-control" />
+                    <span asp-validation-for="Experience" class="text-danger"></span>
+                </div>
+
+                <!-- Specialization -->
+                <div class="form-group">
+                    <label asp-for="Specialization" class="control-label">Specialization</label>
+                    <input asp-for="Specialization" class="form-control" />
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
+                </div>
+
+                <!-- Skill -->
+                <div class="form-group">
+                    <label asp-for="Skill" class="control-label">Kĩ năng</label>
+                    <input asp-for="Skill" class="form-control" />
+                    <span asp-validation-for="Skill" class="text-danger"></span>
+                </div>
+
+                <!-- Last Date to Apply -->
+                <div class="form-group">
+                    <label asp-for="LastDateToApply" class="control-label">Last Date to Apply</label>
+                    <input asp-for="LastDateToApply" class="form-control" id="LastDateToApply" />
+                    <span asp-validation-for="LastDateToApply" class="text-danger"></span>
+                </div>
+
+                <!-- Salary -->
+                <div class="form-group">
+                    <label asp-for="Salary" class="control-label">Salary</label>
+                    <input asp-for="Salary" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+
+                <!-- Job Type -->
+                <div class="form-group">
+                    <label asp-for="JobType" class="control-label">Job Type</label>
+                    <select asp-for="JobType" class="form-control" required>
+                        <option value="">-- Danh sách --</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+                    <span asp-validation-for="JobType" class="text-danger"></span>
+                </div>
+
+                <!-- Company Image -->
+                <div class="form-group">
+                    <label asp-for="CompanyImage" class="control-label">Company Image</label>
+                    <input asp-for="CompanyImage" type="file" class="form-control" name="imgFile" />
+                    <span asp-validation-for="CompanyImage" class="text-danger"></span>
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label asp-for="City" class="control-label">City</label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <!-- State -->
+                <div class="form-group">
+                    <label asp-for="State" class="control-label">State</label>
+                    <select asp-for="State" class="form-control" required>
+                        <option value="">-- Trạng thái --</option>
+                        <option value="Mới">Mới</option>
+                        <option value="Đang mở">Đang mở</option>
+                        <option value="Đã đóng">Đã đóng</option>
+                        <option value="Đã hủy">Đã hủy</option>
+                    </select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label asp-for="CountryId" class="control-label">Country</label>
+                    @Html.DropDownList("CountryId", ViewBag.Country as SelectList, "-- Select Category --", new { @class = "form-control", required = "required" })
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+<script>
+    document.getElementById('jobPostForm').addEventListener('submit', function (e) {
+        var deadlineInput = document.getElementById('LastDateToApply');
+        var deadline = new Date(deadlineInput.value);
+        var now = new Date();
+
+        if (deadline <= now) {
+            e.preventDefault();
+            alert('Thời gian hạn chót phải lớn hơn thời gian hiện tại.');
+        }
+    });
+</script>

@@ -1,0 +1,216 @@
+﻿@model JobPortal.Models.Employers;
+@{
+    ViewData["Title"] = "Employer Profile";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Employer Profile</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData.ContainsKey("SuccessMessagee"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessagee"]
+    </div>
+}
+<div class="container pt-5 pb-5">
+    <div class="main-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="employer-tab" data-toggle="tab" href="#employer" role="tab" aria-controls="employer" aria-selected="true">Employer Information</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Account Information</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="employer" role="tabpanel" aria-labelledby="employer-tab">
+                <!-- Employer Information -->
+                <div class="row gutters-sm mt-3">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="@Url.Content(Model.Logo ?? "/ImageUser/placeholder.png")" alt="Profile Picture" class="rounded-circle" width="150" />
+                                    <div class="mt-3">
+                                        <h4 class="text-capitalize">@Model.CompanyName</h4>
+                                        <p class="text-secondary mb-1">Employer</p>
+                                        <p class="text-muted font-size-sm text-capitalize">
+                                            <i class="fas fa-map-marker-alt"></i> @Model.Country?.CountryName
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Company Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary text-capitalize">
+                                        @Model.CompanyName
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Contact Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary text-capitalize">
+                                        @Model.ContactName
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.Email
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone Number</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.Phone
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.Address
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">City</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.City
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Website</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <a href="Website" target="_blank">@Model.Website</a>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <a href="@Url.Action("EditEmployerProfile", "Employer")" class="btn btn-primary btn-block">Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Company Overview</h5>
+                                <p class="card-text">
+                                    Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <!-- Account Information -->
+                <div class="row gutters-sm mt-3">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="@Url.Content(Model.Logo ?? "/ImageUser/placeholder.png")" alt="Profile Picture" class="rounded-circle" width="150" />
+                                    <div class="mt-3">
+                                        <h4 class="text-capitalize">@Model.User.UserName</h4>
+                                        <p class="text-secondary mb-1">Employer</p>
+                                        <p class="text-muted font-size-sm text-capitalize">
+                                            <i class="fas fa-map-marker-alt"></i> @Model.Country?.CountryName
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Account Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary text-capitalize">
+                                        @Model.User.UserName
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.User.Email
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone Number</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Model.User.NumberPhone
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <a href="@Url.Action("EditUserProfile", "Employer")" class="btn btn-primary btn-block">Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Account Details</h5>
+                                <p class="card-text">
+                                    Detailed information about your account can be displayed here.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#myTab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>

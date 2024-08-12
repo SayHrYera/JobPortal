@@ -1,0 +1,87 @@
+﻿@model JobPortal.Models.AppliedJobs
+
+@{
+    ViewData["Title"] = "Chi tiết ứng viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@Model.YourName</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>Chi tiết ứng viên</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Tên ứng viên:</h5>
+                    <p>@Model.YourName</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Email:</h5>
+                    <p>@Model.Email</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Portfolio:</h5>
+                    <p><a href="@Model.Portfolios" target="_blank">Xem Portfolio</a></p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Ngày ứng tuyển:</h5>
+                    <p>@Model.ApplicationDate</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Ảnh CV của Ứng viên:</h5>
+                    <a href="@Model.ImageUrl" data-lightbox="cv-image" data-title="Ảnh CV của @Model.YourName">
+                        <img src="@Model.ImageUrl" alt="Ảnh CV của ứng viên" class="img-fluid rounded">
+                    </a>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Trạng thái hiện tại:</h5>
+                    <span class="badge 
+                        @(Model.Status == "Đang chờ" ? "badge-warning" : 
+                          Model.Status == "Đã loại" ? "badge-danger" : 
+                          "badge-success")">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Form thay đổi trạng thái -->
+            <form asp-action="ChangeStatus" method="post">
+                <input type="hidden" name="id" value="@Model.AppliedJobId" />
+                <div class="form-group">
+                    <label for="status">Thay đổi trạng thái</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="Đang chờ">Đang chờ</option>
+                        <option value="Đã loại" >Đã loại</option>
+                        <option value="Đã đậu">Đã đậu</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Cập nhật trạng thái</button>
+                <a href="@Url.Action("DetailJob", "Employer", new { id = Model.JobId })" class="btn btn-secondary">Quay lại</a>
+            </form>
+        </div>
+    </div>
+</div>

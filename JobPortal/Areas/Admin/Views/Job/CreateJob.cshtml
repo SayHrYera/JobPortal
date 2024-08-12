@@ -1,0 +1,164 @@
+﻿@model JobPortal.Models.Jobs
+@{
+    ViewData["Title"] = "CreateJob";
+    Layout = "~/Areas/Admin/Views/Shared/lay.cshtml";
+}
+
+<h1 class="mb-4 container">Create Job</h1>
+
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form asp-action="CreateJob" enctype="multipart/form-data" id="jobPostForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Row 1: Title, NoOfPost -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Title" class="form-label">Tên công việc</label>
+                        <input asp-for="Title" class="form-control" required />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="NoOfPost" class="form-label">Số lượng tuyển dụng</label>
+                        <input asp-for="NoOfPost" class="form-control" required />
+                        <span asp-validation-for="NoOfPost" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 2: Description, Qualification -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="CountryId" class="form-label">Quốc gia</label>
+                        @Html.DropDownList("CountryId", ViewBag.Country as SelectList, "-- Select Category --", new { @class = "form-control", required = "required" })
+                        <span asp-validation-for="CountryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Qualification" class="form-label">Trình độ</label>
+                        <input asp-for="Qualification" class="form-control" required />
+                        <span asp-validation-for="Qualification" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 3: Experience, Specialization -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="Experience" class="form-label">Kinh nghiệm</label>
+                        <input asp-for="Experience" class="form-control" required />
+                        <span asp-validation-for="Experience" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Specialization" class="form-label">Chuyên môn</label>
+                        <input asp-for="Specialization" class="form-control" required />
+                        <span asp-validation-for="Specialization" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Skill" class="form-label">Kỹ năng</label>
+                        <input asp-for="Skill" class="form-control" required />
+                        <span asp-validation-for="Skill" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 4: JobCategoryId, EmployerId -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="JobCategoryId" class="form-label">Danh mục công việc</label>
+                        @Html.DropDownList("JobCategoryId", ViewBag.Categories as SelectList, "-- Danh sách --", new { @class = "form-control", required = "required" })
+                        <span asp-validation-for="JobCategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="EmployerId" class="form-label">Nhà tuyển dụng</label>
+                        @Html.DropDownList("EmployerId", ViewBag.Employers as SelectList, "-- Danh sách --", new { @class = "form-control", required = "required" })
+                        <span asp-validation-for="EmployerId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 5: LastDateToApply, Salary -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="LastDateToApply" class="form-label">Hạn cuối nộp hồ sơ</label>
+                        <input asp-for="LastDateToApply" type="date" class="form-control" required id="LastDateToApply" />
+                        <span asp-validation-for="LastDateToApply" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Salary" class="form-label">Mức lương</label>
+                        <input asp-for="Salary" class="form-control" required />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 6: JobType, CompanyImage -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="JobType" class="control-label">Loại hình công việc</label>
+                        <select asp-for="JobType" class="form-control" required>
+                            <option value="">-- Danh sách --</option>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Part Time">Part Time</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Freelance">Freelance</option>
+                        </select>
+                        <span asp-validation-for="JobType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="CompanyImage" class="form-label">Hình ảnh</label>
+                        <input asp-for="CompanyImage" type="file" class="form-control" name="imgFile" required />
+                        <span asp-validation-for="CompanyImage" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 7: City, State -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="City" class="form-label">Thành phố</label>
+                        <input asp-for="City" class="form-control" required />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="State" class="form-label">Tình trạng</label>
+                        <select asp-for="State" class="form-control" required>
+                            <option value="">-- Trạng thái --</option>
+                            <option value="Mới">Mới</option>
+                            <option value="Đang mở">Đang mở</option>
+                            <option value="Đã đóng">Đã đóng</option>
+                            <option value="Đã hủy">Đã hủy</option>
+                        </select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Row 8: Description -->
+                <div class="row">
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">Mô tả</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+<script>
+    document.getElementById('jobPostForm').addEventListener('submit', function (e) {
+        var deadlineInput = document.getElementById('LastDateToApply');
+        var deadline = new Date(deadlineInput.value);
+        var now = new Date();
+
+        if (deadline <= now) {
+            e.preventDefault();
+            alert('Thời gian hạn chót phải lớn hơn thời gian hiện tại.');
+        }
+    });
+</script>
+
